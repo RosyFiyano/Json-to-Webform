@@ -1,0 +1,97 @@
+﻿@model List<JSONtoWebForm.Models.formcontrols>
+
+@{
+    Layout = null;
+}
+
+
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>readJSON</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container" style="width:40%;margin-top:2%">
+        @using (Html.BeginForm("save", "Home", FormMethod.Post))
+        {
+            if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+
+                    string itemtype = item.type;
+                    switch (itemtype)
+                    {
+
+                        case "text":
+                            <label>@item.label</label>
+                            <input type="text" id="txtbx" name="name" class="form-control" />
+                            break;
+                        case "checkbox":
+
+                            <label>@item.label</label>
+
+                            foreach (string str in item.options)
+                            {
+
+                                <div class="form-check">
+                                    <label class="form-check-label">
+
+
+                                        <input type="checkbox" class="form-check-input" name="hobbie" value="@str">@str
+
+                                    </label>
+                                </div>
+
+                            }
+
+                            break;
+                        case "radio":
+                            <label>@item.label</label>
+                            foreach (string str in item.options)
+                            {
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="radio" id="rdogender" class="form-check-input" name="gender" value="@str" />@str
+
+                                    </label>
+                                </div>
+
+                            }
+
+                            break;
+
+
+
+                        default:
+                            break;
+                    }
+
+
+                }
+
+
+                <p>
+                    <input type="submit" class="btn btn-block btn-primary" value="Submit" id="postdata" />
+                </p>
+            }
+        }
+
+        @*</form>*@
+    </div>
+
+</body>
+</html>
